@@ -1,8 +1,10 @@
 package com.quickconnect.custodian.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -17,6 +19,9 @@ import jakarta.validation.constraints.NotNull;
  */
 @Setter
 @Getter
+@NoArgsConstructor               // ✅ Required for Jackson
+@AllArgsConstructor              // ✅ Used for tests and manual creation
+@ToString
 public class Customer {
     // Getters and setters
     @NotBlank

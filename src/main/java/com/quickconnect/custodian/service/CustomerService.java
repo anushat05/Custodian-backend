@@ -13,9 +13,11 @@ import java.util.Set;
 public class CustomerService {
     private final List<Customer> customers = new ArrayList<>();
     private final Set<Integer> usedIds = new HashSet<>();
+    private final CustomerPersistence persistence;
 
-    public CustomerService() {
-        List<Customer> loaded = CustomerPersistence.load();
+    public CustomerService(CustomerPersistence persistence) {
+        this.persistence = persistence;
+        List<Customer> loaded = persistence.load();
         if (loaded != null) {
             customers.addAll(loaded);
             for (Customer c : customers) {
@@ -43,7 +45,7 @@ public class CustomerService {
             responses.add("Customer ID " + c.getId() + " added.");
         }
 
-        CustomerPersistence.save(customers);
+        this.persistence.save(customers);
         return responses;
     }
 
