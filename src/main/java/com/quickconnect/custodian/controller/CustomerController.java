@@ -25,6 +25,10 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
     /**
      * Adds customers to the system after validation.
      * @param customers List of incoming customer objects
