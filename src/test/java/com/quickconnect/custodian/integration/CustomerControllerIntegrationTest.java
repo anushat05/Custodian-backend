@@ -34,11 +34,6 @@ public class CustomerControllerIntegrationTest {
 
     private static final File file = new File(System.getProperty("user.dir") + "/data/customers.json");
 
-    @BeforeEach
-    void cleanJsonFile() throws Exception {
-        if (file.exists()) Files.delete(file.toPath());
-    }
-
     @Test
     @Order(1)
     void testAddCustomers_validInput_shouldReturnSuccess() throws Exception {
