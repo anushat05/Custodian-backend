@@ -1,10 +1,11 @@
-# Custodian
-Custodian is a Spring Boot-based RESTful API for managing customer records, designed for reliability, scalability, and easy integration.
+# CustomerManagerService
+CustomerManagerService is a Spring Boot-based RESTful API for managing customer records, designed for reliability, scalability, and easy integration.
 ## 🔍 Overview
 This RESTful service allows the creation and retrieval of customer records. The system includes validation, custom sorted insertion (without using built-in sort functions), and file-based persistence to support restarts. Designed with simplicity, portability, and clarity in mind, it is optimized for take-home review scenarios and local execution.
 
 ## 💡 Architecture
 <img width="468" alt="image" src="https://github.com/user-attachments/assets/750a17ce-4152-4bdc-a62d-dc8f9cde2570" />
+<img width="468" alt="image" src="assets/flowDiagram.png">
 
 ## 🔧 Components
 
@@ -30,7 +31,7 @@ This RESTful service allows the creation and retrieval of customer records. The 
 ### 🏃 Running the App
 
 #### Option 1: From IntelliJ
-- Open `CustodianApplication.java`
+- Open `CustomerManagerServiceApplication.java`
 - Right-click → **Run**
 
 #### Option 2: Using Maven
@@ -40,7 +41,7 @@ This RESTful service allows the creation and retrieval of customer records. The 
 #### Option 3: Build & Run the JAR
 ```bash
 ./mvnw clean package
-java -jar target/Custodian-0.0.1-SNAPSHOT.jar
+java -jar target/CustomerManagerService-0.0.1-SNAPSHOT.jar
 ```
 ## 📫 API Endpoints
 
