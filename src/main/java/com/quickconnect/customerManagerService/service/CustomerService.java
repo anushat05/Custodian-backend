@@ -38,7 +38,7 @@ public class CustomerService {
                 for (Customer c : customers) {
                     usedIds.add(c.getId());
                 }
-                System.out.println("✅ Loaded " + customers.size() + " customers from file.");
+                System.out.println("Loaded " + customers.size() + " customers from file.");
             }
         }catch (Exception e) {
             throw new CustomerServiceException("Failed to load customers from file", e);

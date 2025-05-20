@@ -20,8 +20,8 @@ import jakarta.validation.constraints.NotNull;
  */
 @Setter
 @Getter
-@NoArgsConstructor               // ✅ Required for Jackson
-@AllArgsConstructor              // ✅ Used for tests and manual creation
+@NoArgsConstructor               // Required for Jackson
+@AllArgsConstructor              // Used for tests and manual creation
 @ToString
 public class Customer {
     // Getters and setters
