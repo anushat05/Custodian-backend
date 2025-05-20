@@ -31,7 +31,7 @@ public class CustomerApiSimulator {
             "Garcia", "Hall", "Ivanov", "Jones", "Khan"
     };
 
-    private static final String BASE_URL = "http://localhost:8080/customers";
+    private static final String BASE_URL = "https://wtqdw7xw41.execute-api.us-east-2.amazonaws.com/Prod/customers";
     private static final HttpClient httpClient = HttpClient.newHttpClient();
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final Random random = new Random();
@@ -62,7 +62,10 @@ public class CustomerApiSimulator {
                     .build();
 
             httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                    .thenAccept(res -> System.out.println("[POST] Status: " + res.statusCode()));
+                    .thenAccept(res -> {
+                        System.out.println("[POST] Status: " + res.statusCode());
+                        System.out.flush();
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,6 +82,8 @@ public class CustomerApiSimulator {
     }
 
     public static void main(String[] args) throws Exception {
+        System.out.println("🚀 Running Customer API Simulator...");
+
         ExecutorService executor = Executors.newFixedThreadPool(10);
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
@@ -88,7 +93,7 @@ public class CustomerApiSimulator {
         }
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-
+        Thread.sleep(2000);
         executor.shutdown();
     }
 }
