@@ -1,8 +1,8 @@
-package com.quickconnect.custodian.util;
+package com.quickconnect.customerManagerService.datastore;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.quickconnect.custodian.model.Customer;
+import com.quickconnect.customerManagerService.model.Customer;
 import org.springframework.stereotype.Component;
 
 import java.io.File;

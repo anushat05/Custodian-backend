@@ -1,6 +1,7 @@
-package com.quickconnect.custodian.util;
+package com.quickconnect.customerManagerService.util;
 
-import com.quickconnect.custodian.model.Customer;
+import com.quickconnect.customerManagerService.datastore.CustomerPersistence;
+import com.quickconnect.customerManagerService.model.Customer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
