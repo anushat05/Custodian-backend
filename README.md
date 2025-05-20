@@ -1,14 +1,41 @@
 # CustomerManagerService
-CustomerManagerService is a Spring Boot-based RESTful API for managing customer records, designed for reliability, scalability, and easy integration.
-## 🔍 Overview
-This RESTful service allows the creation and retrieval of customer records. The system includes validation, custom sorted insertion (without using built-in sort functions), and file-based persistence to support restarts. Designed with simplicity, portability, and clarity in mind, it is optimized for take-home review scenarios and local execution.
+CustomerManagerService is a Spring Boot-based RESTful API for managing customer records, designed for reliability, portability, and ease of integration. The project emphasizes testability, custom logic implementation (without built-in sort), and support for cloud and serverless deployment.
 
+---
+## 🔍 Overview
+
+This RESTful service allows creation and retrieval of customer records. Key features include:
+
+- Validation of request data
+- Manual sorted insertion (without `.sort()`)
+- File-based persistence to retain data across server restarts
+- Modular, testable architecture (controller-service-persistence pattern)
+
+---
 ## 💡 Architecture
 <img width="468" alt="image" src="assets/flowDiagram.png">
 
+---
 ## 🔧 Components
 
-## Key Features
+- `CustomerController` – handles API endpoints
+- `CustomerService` – business logic and validation
+- `CustomerPersistence` – handles file-based read/write
+- `GlobalExceptionHandler` – centralized error handling
+- `CustomerApiSimulator` – generates POST/GET requests for load testing
+
+---
+## 🛠 Key Features
+
+- ✅ RESTful API with `POST` and `GET` endpoints
+- ✅ Manual sorted insertion by `lastName`, then `firstName`
+- ✅ Input validation using `@Valid` and custom logic
+- ✅ Global exception handling for both schema and business rule violations
+- ✅ File-based persistence (via Jackson) 
+- ✅ JUnit + MockMvc test coverage
+- ✅ API simulator to test performance under concurrency
+
+---
 
 ## Phased Delivery Approach
 ### ⬆️ Phase 1: Core Functionality (MVP)
@@ -20,8 +47,10 @@ This RESTful service allows the creation and retrieval of customer records. The 
 ### ⬆️ Phase 2: Enhancements
 * Adding Unit Test and Integration Test
 * Structured error handling
-* Pagination
+* Simulator
+* Modular folder structure
 
+---
 ## How to Run
 ### 🛠 Prerequisites
 - Java 17+
@@ -42,10 +71,22 @@ This RESTful service allows the creation and retrieval of customer records. The 
 ./mvnw clean package
 java -jar target/CustomerManagerService-0.0.1-SNAPSHOT.jar
 ```
+---
 ## 📫 API Endpoints
 
 ### 🔹 POST /customers
 Adds multiple customers at once.
+
+**Requirements:**
+* Must include at least 2 customers
+
+* Each customer must have:
+
+* `firstName`, `lastName` (non-empty)
+
+* age between 10–90
+
+* Sequentially increasing id
 ```JSON
 [
   {
@@ -64,5 +105,39 @@ Adds multiple customers at once.
 ```
 
 ### 🔹 GET /customers
-Returns the list of all customers, sorted by `lastName`, then `firstName`, and then `id`
-## 📝 Notes!
+
+Returns the list of all customers, sorted by :
+* `lastName`
+*  then `firstName`
+
+---
+## 📝 Design Decisions & FAQs
+### 1. Why did you choose Spring Boot?
+Spring Boot offers:
+
+* Fast setup and built-in support for REST APIs
+
+* Strong testing ecosystem
+
+* Auto-configuration and cloud-native features
+
+* Easy extensibility for GCP, AWS, or Docker
+
+* It allowed rapid delivery with a scalable, professional structure.
+
+### 2. Why file-based persistence?
+File persistence allows:
+
+* Retaining state across server restarts
+
+* Avoiding the complexity of database setup
+
+* Easy cloning and testing by reviewers
+
+---
+## Future Improvements
+* Replace file persistence with DynamoDB or GCS 
+* Add Swagger/OpenAPI documentation 
+* Add CI/CD pipeline (GitHub Actions)
+* Implement request throttling/rate-limiting 
+* Extend simulator with CLI flags and metrics

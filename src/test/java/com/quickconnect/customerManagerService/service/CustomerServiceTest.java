@@ -38,7 +38,12 @@ class CustomerServiceTest {
 
         customerService.addCustomers(List.of(c1, c2));
         List<Customer> result = customerService.getCustomers();
-
+        try {
+            Thread.sleep(4000); // wait for > SAVE_DELAY_SECONDS (3 sec)
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Restore interrupt status
+            throw new RuntimeException("Test interrupted", e);
+        }
         assertEquals(2, result.size());
         assertEquals("Anderson", result.get(0).getLastName());
         assertEquals("Ray", result.get(1).getLastName());
@@ -51,7 +56,6 @@ class CustomerServiceTest {
         Customer c2 = new Customer("Frank", "Chan", 22, 1); // duplicate ID
 
         List<String> response = customerService.addCustomers(List.of(c1, c2));
-
         assertEquals(2, response.size());
         assertTrue(response.get(1).contains("already exists"));
         assertEquals(1, customerService.getCustomers().size());
