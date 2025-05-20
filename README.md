@@ -1,5 +1,7 @@
-# CustomerManagerService
-CustomerManagerService is a Spring Boot-based RESTful API for managing customer records, designed for reliability, portability, and ease of integration. The project emphasizes testability, custom logic implementation (without built-in sort), and support for cloud and serverless deployment.
+# CustomerManagerService – Local Server Branch (`main`)
+
+CustomerManagerService is a Spring Boot-based RESTful API for managing customer records, designed with reliability, modularity, and testability in mind. This branch implements **file-based persistence**, enabling easy local testing without external cloud dependencies.
+
 
 ---
 ## 🔍 Overview
@@ -49,8 +51,7 @@ This RESTful service allows creation and retrieval of customer records. Key feat
 * Structured error handling
 * Simulator
 * Modular folder structure
-* Cloud deployment via AWS (Note: this is on a different branch check `cloud-integration` for this)
-
+* Cloud migration implemented separately (`cloud-integration` branch)
 ---
 ## How to Run
 ### 🛠 Prerequisites
@@ -110,6 +111,15 @@ Adds multiple customers at once.
 Returns the list of all customers, sorted by :
 * `lastName`
 *  then `firstName`
+
+---
+## 📁 Branch Summary
+
+| Branch              | Description                                      |
+|---------------------|--------------------------------------------------|
+| `main` (this one)          | 🖥️ Local development with file-based persistence |
+| `cloud-integration` | ☁️ Deployed to AWS Lambda with DynamoDB storage
+
 
 ---
 ## 📝 Design Decisions & FAQs
