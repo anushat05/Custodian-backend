@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Import(TestPersistenceConfig.class)  // ✅ override production bean
+@Import(TestPersistenceConfig.class)  // override production bean
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CustomerControllerIntegrationTest {
 
