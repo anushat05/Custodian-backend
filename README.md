@@ -113,6 +113,15 @@ Returns the list of all customers, sorted by :
 *  then `firstName`
 
 ---
+📁 Branch Summary
+
+| Branch                         | Description                                      |
+|--------------------------------|--------------------------------------------------|
+| `main`                         | 🖥️ Local development with file-based persistence |
+| `cloud-integration` (this one) | ☁️ Deployed to AWS Lambda with DynamoDB storage  |
+
+
+---
 ## 📝 Design Decisions & FAQs
 
 * **DynamoDB**: Reliable, scalable, and serverless; avoids need for file persistence
