@@ -1,7 +1,8 @@
-package com.quickconnect.custodian.controller;
+package com.quickconnect.customerManagerService.controller;
 
-import com.quickconnect.custodian.model.Customer;
-import com.quickconnect.custodian.service.CustomerService;
+import com.quickconnect.customerManagerService.exception.InvalidCustomerRequestException;
+import com.quickconnect.customerManagerService.model.Customer;
+import com.quickconnect.customerManagerService.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.validation.Valid;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * REST controller for managing customers.
@@ -37,6 +42,23 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<List<String>> addCustomers(@Valid @RequestBody List<Customer> customers) {
         List<String> result = customerService.addCustomers(customers);
+        List<String> errors = new ArrayList<>();
+
+        if (customers.size() < 2) {
+            errors.add("Request must contain at least 2 customers.");
+        }
+
+        for (int i = 1; i < customers.size(); i++) {
+            if (customers.get(i).getId() <= customers.get(i - 1).getId()) {
+                errors.add("Customer IDs must be in strictly increasing order.");
+                break;
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            throw new InvalidCustomerRequestException(errors);
+        }
+
         return ResponseEntity.ok(result);
     }
 

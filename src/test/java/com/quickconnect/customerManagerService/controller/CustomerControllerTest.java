@@ -1,7 +1,7 @@
-package com.quickconnect.custodian.controller;
+package com.quickconnect.customerManagerService.controller;
 
-import com.quickconnect.custodian.model.Customer;
-import com.quickconnect.custodian.service.CustomerService;
+import com.quickconnect.customerManagerService.model.Customer;
+import com.quickconnect.customerManagerService.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -9,8 +9,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class CustomerControllerTest {
 

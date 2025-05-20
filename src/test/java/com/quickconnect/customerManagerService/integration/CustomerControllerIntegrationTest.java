@@ -1,9 +1,8 @@
-package com.quickconnect.custodian.integration;
+package com.quickconnect.customerManagerService.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.quickconnect.custodian.config.TestPersistenceConfig;
-import com.quickconnect.custodian.model.Customer;
-import org.junit.jupiter.api.BeforeEach;
+import com.quickconnect.customerManagerService.config.TestPersistenceConfig;
+import com.quickconnect.customerManagerService.model.Customer;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -16,12 +15,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.List;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc

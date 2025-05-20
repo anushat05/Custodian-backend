@@ -1,4 +1,4 @@
-package com.quickconnect.custodian.model;
+package com.quickconnect.customerManagerService.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -31,6 +32,7 @@ public class Customer {
     private String lastName;
 
     @Min(19)
+    @Max(90)
     private int age;
 
     @NotNull

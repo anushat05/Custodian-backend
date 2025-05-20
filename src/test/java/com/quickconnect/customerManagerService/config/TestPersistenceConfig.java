@@ -1,6 +1,6 @@
-package com.quickconnect.custodian.config;
+package com.quickconnect.customerManagerService.config;
 
-import com.quickconnect.custodian.util.CustomerPersistence;
+import com.quickconnect.customerManagerService.datastore.CustomerPersistence;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
