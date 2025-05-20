@@ -31,7 +31,7 @@ This RESTful service allows creation and retrieval of customer records. Key feat
 - ✅ Manual sorted insertion by `lastName`, then `firstName`
 - ✅ Input validation using `@Valid` and custom logic
 - ✅ Global exception handling for both schema and business rule violations
-- ✅ File-based persistence (via Jackson) 
+- ✅ File-based persistence (via Jackson) with option to extend to cloud (e.g., GCS, DynamoDB)
 - ✅ JUnit + MockMvc test coverage
 - ✅ API simulator to test performance under concurrency
 
@@ -49,6 +49,7 @@ This RESTful service allows creation and retrieval of customer records. Key feat
 * Structured error handling
 * Simulator
 * Modular folder structure
+* Cloud deployment via AWS (Note: this is on a different branch check `cloud-integration` for this)
 
 ---
 ## How to Run

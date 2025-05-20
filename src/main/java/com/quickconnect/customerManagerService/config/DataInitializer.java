@@ -16,7 +16,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         customerService.loadData();
-        System.out.println("✅ Customers loaded on application startup");
+        System.out.println("Customers loaded on application startup");
     }
 }
 
