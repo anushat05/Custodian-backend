@@ -1,76 +1,78 @@
-# CustomerManagerService
-CustomerManagerService is a Spring Boot-based RESTful API for managing customer records, designed for reliability, portability, and ease of integration. The project emphasizes testability, custom logic implementation (without built-in sort), and support for cloud and serverless deployment.
+# CustomerManagerService – Cloud Integration Branch
+CCustomerManagerService is a Spring Boot-based RESTful API deployed on AWS Lambda via API Gateway, with DynamoDB used for persistence. It is designed to be lightweight, scalable, and testable — and emphasizes custom logic implementation (no built-in sorting), clean modular architecture, and serverless cloud integration.
 
 ---
 ## 🔍 Overview
 
-This RESTful service allows creation and retrieval of customer records. Key features include:
+This service allows creation and retrieval of customer records via a cloud-hosted RESTful API.
 
-- Validation of request data
-- Manual sorted insertion (without `.sort()`)
-- File-based persistence to retain data across server restarts
-- Modular, testable architecture (controller-service-persistence pattern)
+### 🔑 Highlights:
+- Manual sorted insertion by `lastName`, then `firstName` (without using `.sort()`)
+- Data stored in DynamoDB (not file system)
+- API deployed as AWS Lambda via SAM
+- Robust validation and error handling
+- Cloud-friendly: clean logging, portable
 
 ---
 ## 💡 Architecture
-<img width="468" alt="image" src="assets/flowDiagram.png">
+<img width="468" alt="image" src="assets/cloud-architecture.png">
+
+- **API Gateway** – Receives HTTP requests
+- **AWS Lambda** – Hosts the Spring Boot app
+- **DynamoDB** – Persists customer data
+- **IAM Role** – Secures Lambda access to DynamoDB
 
 ---
 ## 🔧 Components
 
-- `CustomerController` – handles API endpoints
-- `CustomerService` – business logic and validation
-- `CustomerPersistence` – handles file-based read/write
-- `GlobalExceptionHandler` – centralized error handling
-- `CustomerApiSimulator` – generates POST/GET requests for load testing
+* `CustomerController` – REST endpoints
+* `CustomerService` – Core business logic, validation
+* `CustomerPersistence` – Abstract class (or interface) defining the persistence contract (load() and save())
+* `DynamoCustomerPersistence` – Concrete implementation of CustomerPersistence that reads from and writes to DynamoDB
+* `GlobalExceptionHandler` – Centralized error handling
+* `CustomerApiSimulator` – Simulates POST/GET requests for concurrency and load testing
+
 
 ---
 ## 🛠 Key Features
 
-- ✅ RESTful API with `POST` and `GET` endpoints
-- ✅ Manual sorted insertion by `lastName`, then `firstName`
-- ✅ Input validation using `@Valid` and custom logic
-- ✅ Global exception handling for both schema and business rule violations
-- ✅ File-based persistence (via Jackson) 
-- ✅ JUnit + MockMvc test coverage
-- ✅ API simulator to test performance under concurrency
+- `POST /customers` – Add multiple customers in a single request
+- `GET /customers` – Fetch customers, sorted by `lastName`, then `firstName`
+- Validation rules:
+    - All fields required
+    - Age must be ≥ 18
+    - IDs must be unique and increasing
+- Manually sorted insertion (no `.sort()`)
+- AWS Lambda + API Gateway + DynamoDB integration
 
 ---
-
-## Phased Delivery Approach
-### ⬆️ Phase 1: Core Functionality (MVP)
-* Define model (Customer)
-* Implement `/customers` POST and GET
-* Manual insertion without `.sort()`
-* File-based persistence with Jackson
-
-### ⬆️ Phase 2: Enhancements
-* Adding Unit Test and Integration Test
-* Structured error handling
-* Simulator
-* Modular folder structure
-
----
-## How to Run
+## Deploying to AWS
 ### 🛠 Prerequisites
-- Java 17+
-- Maven 3.8+
-- IntelliJ or any Java IDE
-### 🏃 Running the App
+Make sure you have:
 
-#### Option 1: From IntelliJ
-- Open `CustomerManagerServiceApplication.java`
-- Right-click → **Run**
+* AWS CLI installed & configured
 
-#### Option 2: Using Maven
+* AWS SAM CLI installed
+
+### Build & Deploy
 ```bash
-./mvnw spring-boot:run
+./mvnw clean package 
 ```
-#### Option 3: Build & Run the JAR
 ```bash
-./mvnw clean package
-java -jar target/CustomerManagerService-0.0.1-SNAPSHOT.jar
+sam build
 ```
+```bash
+sam deploy --guided
+```
+This will:
+
+* Package the app
+
+* Upload it to AWS
+
+* Deploy it with API Gateway
+
+
 ---
 ## 📫 API Endpoints
 
@@ -112,32 +114,29 @@ Returns the list of all customers, sorted by :
 
 ---
 ## 📝 Design Decisions & FAQs
-### 1. Why did you choose Spring Boot?
-Spring Boot offers:
 
-* Fast setup and built-in support for REST APIs
+* **DynamoDB**: Reliable, scalable, and serverless; avoids need for file persistence
 
-* Strong testing ecosystem
+* **Manual sorting**: No built-in sort allowed per spec; custom insertion logic used
 
-* Auto-configuration and cloud-native features
-
-* Easy extensibility for GCP, AWS, or Docker
-
-* It allowed rapid delivery with a scalable, professional structure.
-
-### 2. Why file-based persistence?
-File persistence allows:
-
-* Retaining state across server restarts
-
-* Avoiding the complexity of database setup
-
-* Easy cloning and testing by reviewers
-
+* **Serverless via Lambd**a: Minimizes cost, auto-scales, portable
 ---
 ## Future Improvements
-* Replace file persistence with DynamoDB or GCS 
-* Add Swagger/OpenAPI documentation 
-* Add CI/CD pipeline (GitHub Actions)
-* Implement request throttling/rate-limiting 
-* Extend simulator with CLI flags and metrics
+* Add rate-limiting via API Gateway usage plans
+
+* Add Swagger/OpenAPI spec
+
+* Add GitHub Actions CI/CD pipeline
+
+* Add user authentication (e.g., Cognito)
+---
+## 📌 Out of Scope
+This project intentionally focuses on core functionality and correctness per the take-home specification. The following are considered out of scope for this implementation:
+
+* Lambda cold start mitigation (e.g., provisioned concurrency, warmers)
+
+* Authentication/authorization (e.g., Cognito, JWT, IAM-based auth)
+
+* Multi-tenant or user-scoped storage
+
+* Global scalability optimizations
